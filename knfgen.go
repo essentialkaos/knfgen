@@ -24,21 +24,23 @@ import (
 
 const (
 	APP = "KNFGen"
-	VER = "0.1"
+	VER = "0.2"
 )
 
 const (
-	ARG_NO_COLOR = "nc:no-color"
-	ARG_HELP     = "h:help"
-	ARG_VER      = "v:version"
+	ARG_SEPARATORS = "s:separators"
+	ARG_NO_COLOR   = "nc:no-color"
+	ARG_HELP       = "h:help"
+	ARG_VER        = "v:version"
 )
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 var argList = arg.Map{
-	ARG_NO_COLOR: &arg.V{Type: arg.BOOL},
-	ARG_HELP:     &arg.V{Type: arg.BOOL, Alias: "u:usage"},
-	ARG_VER:      &arg.V{Type: arg.BOOL, Alias: "ver"},
+	ARG_SEPARATORS: &arg.V{Type: arg.BOOL},
+	ARG_NO_COLOR:   &arg.V{Type: arg.BOOL},
+	ARG_HELP:       &arg.V{Type: arg.BOOL, Alias: "u:usage"},
+	ARG_VER:        &arg.V{Type: arg.BOOL, Alias: "ver"},
 }
 
 // ////////////////////////////////////////////////////////////////////////////////// //
@@ -47,8 +49,6 @@ func main() {
 	args, errs := arg.Parse(argList)
 
 	if len(errs) != 0 {
-		fmtc.NewLine()
-
 		for _, err := range errs {
 			fmtc.Printf("{r}%s{!}\n", err.Error())
 		}
@@ -93,16 +93,21 @@ func renderConfig(config *knf.Config) {
 	}
 
 	formatString := getFormatString(maxPropSize)
+	sectionsTotal := len(config.Sections())
 
 	fmtc.Println("const (")
 
-	for _, section := range config.Sections() {
+	for sectionIndex, section := range config.Sections() {
 		for _, prop := range config.Props(section) {
 			fmtc.Printf(
 				formatString,
 				formatConstName(section, prop),
 				section, prop,
 			)
+		}
+
+		if arg.GetB(ARG_SEPARATORS) && sectionIndex < sectionsTotal-1 {
+			fmtc.NewLine()
 		}
 	}
 
@@ -131,6 +136,7 @@ func getFormatString(maxSize int) string {
 func showUsage() {
 	info := usage.NewInfo("knfgen", "config-file")
 
+	info.AddOption(ARG_SEPARATORS, "Add new lines between sections")
 	info.AddOption(ARG_NO_COLOR, "Disable colors in output")
 	info.AddOption(ARG_HELP, "Show this help message")
 	info.AddOption(ARG_VER, "Show version")

@@ -9,6 +9,17 @@
 go get github.com/essentialkaos/knfgen
 ````
 
+#### Usage
+
+    Usage: knfgen <options> config-file
+    
+    Options:
+    
+      --separators, -s     Add new lines between sections
+      --no-color, -nc      Disable colors in output
+      --help, -h           Show this help message
+      --version, -v        Show version
+
 #### Build Status
 
 | Repository | Status |
