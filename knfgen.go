@@ -16,6 +16,7 @@ import (
 	"github.com/essentialkaos/ek/fmtc"
 	"github.com/essentialkaos/ek/fmtutil"
 	"github.com/essentialkaos/ek/knf"
+	"github.com/essentialkaos/ek/mathutil"
 	"github.com/essentialkaos/ek/usage"
 )
 
@@ -87,7 +88,7 @@ func renderConfig(config *knf.Config) {
 
 	for _, section := range config.Sections() {
 		for _, prop := range config.Props(section) {
-			maxPropSize = len(formatConstName(section, prop))
+			maxPropSize = mathutil.Max(maxPropSize, len(formatConstName(section, prop)))
 		}
 	}
 
@@ -110,6 +111,7 @@ func renderConfig(config *knf.Config) {
 	fmtutil.Separator(false)
 }
 
+// formatConstName return const name
 func formatConstName(section, prop string) string {
 	fs := strings.ToUpper(section)
 	fp := strings.ToUpper(prop)
@@ -119,8 +121,9 @@ func formatConstName(section, prop string) string {
 	return fs + "_" + fp
 }
 
+// getFormatString return format string
 func getFormatString(maxSize int) string {
-	return "\t%" + strconv.Itoa(maxSize) + "s = \"%s:%s\"\n"
+	return "\t%-" + strconv.Itoa(maxSize) + "s = \"%s:%s\"\n"
 }
 
 // ////////////////////////////////////////////////////////////////////////////////// //
