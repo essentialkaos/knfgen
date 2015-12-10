@@ -1,6 +1,6 @@
 ### KNFGen
 
-_KNFGen_ is utility for generating go const code for KNF configs.
+`KNFGen` is utility for generating go const code for KNF configs.
 
 
 #### Installation
