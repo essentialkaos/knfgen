@@ -11,7 +11,7 @@ os:
   - osx
 
 before_install:
-  - go get github.com/essentialkaos/ek
+  - go get pkg.re/essentialkaos/ek.v1
 
 script:
   - go build knfgen.go

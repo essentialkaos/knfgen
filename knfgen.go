@@ -12,19 +12,19 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/essentialkaos/ek/arg"
-	"github.com/essentialkaos/ek/fmtc"
-	"github.com/essentialkaos/ek/fmtutil"
-	"github.com/essentialkaos/ek/knf"
-	"github.com/essentialkaos/ek/mathutil"
-	"github.com/essentialkaos/ek/usage"
+	"pkg.re/essentialkaos/ek.v1/arg"
+	"pkg.re/essentialkaos/ek.v1/fmtc"
+	"pkg.re/essentialkaos/ek.v1/fmtutil"
+	"pkg.re/essentialkaos/ek.v1/knf"
+	"pkg.re/essentialkaos/ek.v1/mathutil"
+	"pkg.re/essentialkaos/ek.v1/usage"
 )
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 const (
 	APP = "KNFGen"
-	VER = "0.2"
+	VER = "0.2.1"
 )
 
 const (
