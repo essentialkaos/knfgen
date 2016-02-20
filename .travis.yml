@@ -3,6 +3,7 @@ language: go
 go:
   - 1.4.3
   - 1.5.3
+  - 1.6
   - tip
 
 sudo: false
@@ -10,7 +11,6 @@ sudo: false
 os:
   - linux
   - osx
-  - freebsd
 
 before_install:
   - go get pkg.re/essentialkaos/ek.v1
