@@ -23,8 +23,9 @@ import (
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 const (
-	APP = "KNFGen"
-	VER = "0.2.1"
+	APP  = "KNFGen"
+	VER  = "0.2.2"
+	DESC = "Utility for generating go const code for KNF configs"
 )
 
 const (
@@ -50,7 +51,7 @@ func main() {
 
 	if len(errs) != 0 {
 		for _, err := range errs {
-			fmtc.Printf("{r}%s{!}\n", err.Error())
+			printError(err.Error())
 		}
 
 		os.Exit(1)
@@ -73,7 +74,7 @@ func main() {
 	config, err := knf.Read(args[0])
 
 	if err != nil {
-		fmtc.Printf("{r}%s{!}\n", err.Error())
+		printError(err.Error())
 		os.Exit(1)
 	}
 
@@ -131,10 +132,20 @@ func getFormatString(maxSize int) string {
 	return "\t%-" + strconv.Itoa(maxSize) + "s = \"%s:%s\"\n"
 }
 
+// printError prints error message to console
+func printError(f string, a ...interface{}) {
+	fmtc.Printf("{r}"+f+"{!}\n", a...)
+}
+
+// printError prints warning message to console
+func printWarn(f string, a ...interface{}) {
+	fmtc.Printf("{y}"+f+"{!}\n", a...)
+}
+
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 func showUsage() {
-	info := usage.NewInfo("knfgen", "config-file")
+	info := usage.NewInfo("", "config-file")
 
 	info.AddOption(ARG_SEPARATORS, "Add new lines between sections")
 	info.AddOption(ARG_NO_COLOR, "Disable colors in output")
@@ -150,7 +161,7 @@ func showAbout() {
 	about := &usage.About{
 		App:     APP,
 		Version: VER,
-		Desc:    "Utility for generating go const code for KNF configs",
+		Desc:    DESC,
 		Year:    2006,
 		Owner:   "ESSENTIAL KAOS",
 		License: "Essential Kaos Open Source License <https://essentialkaos.com/ekol?en>",
