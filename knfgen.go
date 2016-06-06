@@ -24,7 +24,7 @@ import (
 
 const (
 	APP  = "KNFGen"
-	VER  = "0.2.2"
+	VER  = "0.2.3"
 	DESC = "Utility for generating go const code for KNF configs"
 )
 
@@ -122,6 +122,7 @@ func formatConstName(section, prop string) string {
 	fs := strings.ToUpper(section)
 	fp := strings.ToUpper(prop)
 
+	fs = strings.Replace(fs, "-", "_", -1)
 	fp = strings.Replace(fp, "-", "_", -1)
 
 	return fs + "_" + fp
