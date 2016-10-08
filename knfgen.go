@@ -12,19 +12,19 @@ import (
 	"strconv"
 	"strings"
 
-	"pkg.re/essentialkaos/ek.v3/arg"
-	"pkg.re/essentialkaos/ek.v3/fmtc"
-	"pkg.re/essentialkaos/ek.v3/fmtutil"
-	"pkg.re/essentialkaos/ek.v3/knf"
-	"pkg.re/essentialkaos/ek.v3/mathutil"
-	"pkg.re/essentialkaos/ek.v3/usage"
+	"pkg.re/essentialkaos/ek.v4/arg"
+	"pkg.re/essentialkaos/ek.v4/fmtc"
+	"pkg.re/essentialkaos/ek.v4/fmtutil"
+	"pkg.re/essentialkaos/ek.v4/knf"
+	"pkg.re/essentialkaos/ek.v4/mathutil"
+	"pkg.re/essentialkaos/ek.v4/usage"
 )
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 const (
 	APP  = "KNFGen"
-	VER  = "0.2.4"
+	VER  = "0.2.5"
 	DESC = "Utility for generating go const code for KNF configs"
 )
 
