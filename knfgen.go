@@ -12,12 +12,12 @@ import (
 	"strconv"
 	"strings"
 
-	"pkg.re/essentialkaos/ek.v4/arg"
-	"pkg.re/essentialkaos/ek.v4/fmtc"
-	"pkg.re/essentialkaos/ek.v4/fmtutil"
-	"pkg.re/essentialkaos/ek.v4/knf"
-	"pkg.re/essentialkaos/ek.v4/mathutil"
-	"pkg.re/essentialkaos/ek.v4/usage"
+	"pkg.re/essentialkaos/ek.v5/arg"
+	"pkg.re/essentialkaos/ek.v5/fmtc"
+	"pkg.re/essentialkaos/ek.v5/fmtutil"
+	"pkg.re/essentialkaos/ek.v5/knf"
+	"pkg.re/essentialkaos/ek.v5/mathutil"
+	"pkg.re/essentialkaos/ek.v5/usage"
 )
 
 // ////////////////////////////////////////////////////////////////////////////////// //
