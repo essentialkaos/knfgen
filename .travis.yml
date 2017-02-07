@@ -22,7 +22,9 @@ matrix:
     - go: tip
 
 before_install:
-  - go get pkg.re/essentialkaos/ek.v5
+  - go get -v pkg.re/essentialkaos/ek.v6
 
 script:
   - go build knfgen.go
+  - ./knfgen testdata/test1.source | sha1sum | grep -q 'dbfffea813d04de4d838f1877b54fc53cee73616'
+  - ./knfgen testdata/test2.source | sha1sum | grep -q 'dbfffea813d04de4d838f1877b54fc53cee73616'
