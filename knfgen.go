@@ -2,8 +2,8 @@ package main
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 //                                                                                    //
-//                     Copyright (c) 2009-2016 Essential Kaos                         //
-//      Essential Kaos Open Source License <http://essentialkaos.com/ekol?en>         //
+//                     Copyright (c) 2009-2017 ESSENTIAL KAOS                         //
+//        Essential Kaos Open Source License <https://essentialkaos.com/ekol>         //
 //                                                                                    //
 // ////////////////////////////////////////////////////////////////////////////////// //
 
@@ -12,20 +12,22 @@ import (
 	"strconv"
 	"strings"
 
-	"pkg.re/essentialkaos/ek.v5/arg"
-	"pkg.re/essentialkaos/ek.v5/fmtc"
-	"pkg.re/essentialkaos/ek.v5/fmtutil"
-	"pkg.re/essentialkaos/ek.v5/knf"
-	"pkg.re/essentialkaos/ek.v5/mathutil"
-	"pkg.re/essentialkaos/ek.v5/usage"
+	"pkg.re/essentialkaos/ek.v6/arg"
+	"pkg.re/essentialkaos/ek.v6/env"
+	"pkg.re/essentialkaos/ek.v6/fmtc"
+	"pkg.re/essentialkaos/ek.v6/fmtutil"
+	"pkg.re/essentialkaos/ek.v6/fsutil"
+	"pkg.re/essentialkaos/ek.v6/knf"
+	"pkg.re/essentialkaos/ek.v6/mathutil"
+	"pkg.re/essentialkaos/ek.v6/usage"
 )
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 const (
 	APP  = "KNFGen"
-	VER  = "0.2.5"
-	DESC = "Utility for generating go const code for KNF configs"
+	VER  = "0.3.0"
+	DESC = "Utility for generating Golang const code for KNF configs"
 )
 
 const (
@@ -38,11 +40,13 @@ const (
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 var argList = arg.Map{
-	ARG_SEPARATORS: &arg.V{Type: arg.BOOL},
-	ARG_NO_COLOR:   &arg.V{Type: arg.BOOL},
-	ARG_HELP:       &arg.V{Type: arg.BOOL, Alias: "u:usage"},
-	ARG_VER:        &arg.V{Type: arg.BOOL, Alias: "ver"},
+	ARG_SEPARATORS: {Type: arg.BOOL},
+	ARG_NO_COLOR:   {Type: arg.BOOL},
+	ARG_HELP:       {Type: arg.BOOL, Alias: "u:usage"},
+	ARG_VER:        {Type: arg.BOOL, Alias: "ver"},
 }
+
+var rawOutput = false
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 
@@ -57,9 +61,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	if arg.GetB(ARG_NO_COLOR) {
-		fmtc.DisableColors = true
-	}
+	configureUI()
 
 	if arg.GetB(ARG_VER) {
 		showAbout()
@@ -71,10 +73,46 @@ func main() {
 		return
 	}
 
-	config, err := knf.Read(args[0])
+	process(args[0])
+}
+
+// configureUI configure user interface
+func configureUI() {
+	envVars := env.Get()
+	term := envVars.GetS("TERM")
+
+	fmtc.DisableColors = true
+	rawOutput = true
+
+	if term != "" {
+		switch {
+		case strings.Contains(term, "xterm"),
+			strings.Contains(term, "color"),
+			term == "screen":
+			fmtc.DisableColors = false
+			rawOutput = false
+		}
+	}
+
+	if arg.GetB(ARG_NO_COLOR) {
+		fmtc.DisableColors = true
+	}
+
+	if !fsutil.IsCharacterDevice("/dev/stdout") && envVars.GetS("FAKETTY") == "" {
+		fmtc.DisableColors = true
+		rawOutput = true
+	}
+}
+
+// process start config processing
+func process(file string) {
+	config, err := knf.Read(file)
 
 	if err != nil {
-		printError(err.Error())
+		if !rawOutput {
+			printError(err.Error())
+		}
+
 		os.Exit(1)
 	}
 
@@ -83,7 +121,9 @@ func main() {
 
 // renderConfig render config data
 func renderConfig(config *knf.Config) {
-	fmtutil.Separator(false)
+	if !rawOutput {
+		fmtutil.Separator(false)
+	}
 
 	var maxPropSize int
 
@@ -96,7 +136,7 @@ func renderConfig(config *knf.Config) {
 	formatString := getFormatString(maxPropSize)
 	sectionsTotal := len(config.Sections())
 
-	fmtc.Println("const (")
+	fmtc.Println("{*}const ({!}")
 
 	for sectionIndex, section := range config.Sections() {
 		for _, prop := range config.Props(section) {
@@ -112,9 +152,11 @@ func renderConfig(config *knf.Config) {
 		}
 	}
 
-	fmtc.Println(")")
+	fmtc.Println("{*}){!}")
 
-	fmtutil.Separator(false)
+	if !rawOutput {
+		fmtutil.Separator(false)
+	}
 }
 
 // formatConstName return const name
@@ -130,7 +172,7 @@ func formatConstName(section, prop string) string {
 
 // getFormatString return format string
 func getFormatString(maxSize int) string {
-	return "\t%-" + strconv.Itoa(maxSize) + "s = \"%s:%s\"\n"
+	return "\t%-" + strconv.Itoa(maxSize) + "s = {y}\"%s:%s\"{!}\n"
 }
 
 // printError prints error message to console
@@ -165,7 +207,7 @@ func showAbout() {
 		Desc:    DESC,
 		Year:    2006,
 		Owner:   "ESSENTIAL KAOS",
-		License: "Essential Kaos Open Source License <https://essentialkaos.com/ekol?en>",
+		License: "Essential Kaos Open Source License <https://essentialkaos.com/ekol>",
 	}
 
 	about.Render()
