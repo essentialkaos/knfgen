@@ -1,6 +1,6 @@
-## KNFGen
+## KNFGen [![Go Report Card](https://goreportcard.com/badge/github.com/essentialkaos/knfgen)](https://goreportcard.com/report/github.com/essentialkaos/knfgen) [![License](https://gh.kaos.io/ekol.svg)](https://essentialkaos.com/ekol)
 
-`KNFGen` is utility for generating go const code for [KNF](https://godoc.org/pkg.re/essentialkaos/ek.v1/knf) configs.
+`KNFGen` is utility for generating go const code for [KNF](https://godoc.org/pkg.re/essentialkaos/ek.v6/knf) configs.
 
 * [Installation](#installation)
 * [Usage](#usage)
@@ -25,7 +25,7 @@ go get -u github.com/essentialkaos/knfgen
 #### Usage
 
 ```
-Usage: knfgen <options> config-file
+Usage: knfgen {options} config-file
     
 Options:
     
@@ -38,10 +38,10 @@ Options:
 
 #### Build Status
 
-| Repository | Status |
+| Branch | Status |
 |------------|--------|
-| Stable | [![Build Status](https://travis-ci.org/essentialkaos/knfgen.svg?branch=master)](https://travis-ci.org/essentialkaos/knfgen) |
-| Unstable | [![Build Status](https://travis-ci.org/essentialkaos/knfgen.svg?branch=develop)](https://travis-ci.org/essentialkaos/knfgen) |
+| `master` | [![Build Status](https://travis-ci.org/essentialkaos/knfgen.svg?branch=master)](https://travis-ci.org/essentialkaos/knfgen) |
+| `develop` | [![Build Status](https://travis-ci.org/essentialkaos/knfgen.svg?branch=develop)](https://travis-ci.org/essentialkaos/knfgen) |
 
 #### Contributing
 
