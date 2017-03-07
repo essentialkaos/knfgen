@@ -12,21 +12,21 @@ import (
 	"strconv"
 	"strings"
 
-	"pkg.re/essentialkaos/ek.v6/arg"
-	"pkg.re/essentialkaos/ek.v6/env"
-	"pkg.re/essentialkaos/ek.v6/fmtc"
-	"pkg.re/essentialkaos/ek.v6/fmtutil"
-	"pkg.re/essentialkaos/ek.v6/fsutil"
-	"pkg.re/essentialkaos/ek.v6/knf"
-	"pkg.re/essentialkaos/ek.v6/mathutil"
-	"pkg.re/essentialkaos/ek.v6/usage"
+	"pkg.re/essentialkaos/ek.v7/arg"
+	"pkg.re/essentialkaos/ek.v7/env"
+	"pkg.re/essentialkaos/ek.v7/fmtc"
+	"pkg.re/essentialkaos/ek.v7/fmtutil"
+	"pkg.re/essentialkaos/ek.v7/fsutil"
+	"pkg.re/essentialkaos/ek.v7/knf"
+	"pkg.re/essentialkaos/ek.v7/mathutil"
+	"pkg.re/essentialkaos/ek.v7/usage"
 )
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 const (
 	APP  = "KNFGen"
-	VER  = "0.3.0"
+	VER  = "0.4.0"
 	DESC = "Utility for generating Golang const code for KNF configs"
 )
 
@@ -39,7 +39,7 @@ const (
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 
-var argList = arg.Map{
+var argMap = arg.Map{
 	ARG_SEPARATORS: {Type: arg.BOOL},
 	ARG_NO_COLOR:   {Type: arg.BOOL},
 	ARG_HELP:       {Type: arg.BOOL, Alias: "u:usage"},
@@ -51,7 +51,7 @@ var rawOutput = false
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 func main() {
-	args, errs := arg.Parse(argList)
+	args, errs := arg.Parse(argMap)
 
 	if len(errs) != 0 {
 		for _, err := range errs {
