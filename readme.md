@@ -1,6 +1,6 @@
-## KNFGen [![Go Report Card](https://goreportcard.com/badge/github.com/essentialkaos/knfgen)](https://goreportcard.com/report/github.com/essentialkaos/knfgen) [![License](https://gh.kaos.io/ekol.svg)](https://essentialkaos.com/ekol)
+## KNFGen [![Build Status](https://travis-ci.org/essentialkaos/knfgen.svg?branch=master)](https://travis-ci.org/essentialkaos/knfgen) [![Go Report Card](https://goreportcard.com/badge/github.com/essentialkaos/knfgen)](https://goreportcard.com/report/github.com/essentialkaos/knfgen) [![License](https://gh.kaos.io/ekol.svg)](https://essentialkaos.com/ekol)
 
-`KNFGen` is utility for generating go const code for [KNF](https://godoc.org/pkg.re/essentialkaos/ek.v6/knf) configs.
+`KNFGen` is utility for generating go const code for [KNF](https://godoc.org/pkg.re/essentialkaos/ek.v7/knf) configs.
 
 * [Installation](#installation)
 * [Usage](#usage)
