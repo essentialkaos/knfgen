@@ -12,21 +12,21 @@ import (
 	"strconv"
 	"strings"
 
-	"pkg.re/essentialkaos/ek.v7/arg"
-	"pkg.re/essentialkaos/ek.v7/env"
-	"pkg.re/essentialkaos/ek.v7/fmtc"
-	"pkg.re/essentialkaos/ek.v7/fmtutil"
-	"pkg.re/essentialkaos/ek.v7/fsutil"
-	"pkg.re/essentialkaos/ek.v7/knf"
-	"pkg.re/essentialkaos/ek.v7/mathutil"
-	"pkg.re/essentialkaos/ek.v7/usage"
+	"pkg.re/essentialkaos/ek.v8/arg"
+	"pkg.re/essentialkaos/ek.v8/env"
+	"pkg.re/essentialkaos/ek.v8/fmtc"
+	"pkg.re/essentialkaos/ek.v8/fmtutil"
+	"pkg.re/essentialkaos/ek.v8/fsutil"
+	"pkg.re/essentialkaos/ek.v8/knf"
+	"pkg.re/essentialkaos/ek.v8/mathutil"
+	"pkg.re/essentialkaos/ek.v8/usage"
 )
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 const (
 	APP  = "KNFGen"
-	VER  = "0.4.0"
+	VER  = "0.5.0"
 	DESC = "Utility for generating Golang const code for KNF configs"
 )
 
