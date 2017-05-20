@@ -12,38 +12,38 @@ import (
 	"strconv"
 	"strings"
 
-	"pkg.re/essentialkaos/ek.v8/arg"
-	"pkg.re/essentialkaos/ek.v8/env"
-	"pkg.re/essentialkaos/ek.v8/fmtc"
-	"pkg.re/essentialkaos/ek.v8/fmtutil"
-	"pkg.re/essentialkaos/ek.v8/fsutil"
-	"pkg.re/essentialkaos/ek.v8/knf"
-	"pkg.re/essentialkaos/ek.v8/mathutil"
-	"pkg.re/essentialkaos/ek.v8/usage"
+	"pkg.re/essentialkaos/ek.v9/env"
+	"pkg.re/essentialkaos/ek.v9/fmtc"
+	"pkg.re/essentialkaos/ek.v9/fmtutil"
+	"pkg.re/essentialkaos/ek.v9/fsutil"
+	"pkg.re/essentialkaos/ek.v9/knf"
+	"pkg.re/essentialkaos/ek.v9/mathutil"
+	"pkg.re/essentialkaos/ek.v9/options"
+	"pkg.re/essentialkaos/ek.v9/usage"
 )
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 const (
 	APP  = "KNFGen"
-	VER  = "0.5.0"
+	VER  = "0.6.0"
 	DESC = "Utility for generating Golang const code for KNF configs"
 )
 
 const (
-	ARG_SEPARATORS = "s:separators"
-	ARG_NO_COLOR   = "nc:no-color"
-	ARG_HELP       = "h:help"
-	ARG_VER        = "v:version"
+	OPT_SEPARATORS = "s:separators"
+	OPT_NO_COLOR   = "nc:no-color"
+	OPT_HELP       = "h:help"
+	OPT_VER        = "v:version"
 )
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 
-var argMap = arg.Map{
-	ARG_SEPARATORS: {Type: arg.BOOL},
-	ARG_NO_COLOR:   {Type: arg.BOOL},
-	ARG_HELP:       {Type: arg.BOOL, Alias: "u:usage"},
-	ARG_VER:        {Type: arg.BOOL, Alias: "ver"},
+var optMap = options.Map{
+	OPT_SEPARATORS: {Type: options.BOOL},
+	OPT_NO_COLOR:   {Type: options.BOOL},
+	OPT_HELP:       {Type: options.BOOL, Alias: "u:usage"},
+	OPT_VER:        {Type: options.BOOL, Alias: "ver"},
 }
 
 var rawOutput = false
@@ -51,7 +51,7 @@ var rawOutput = false
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 func main() {
-	args, errs := arg.Parse(argMap)
+	args, errs := options.Parse(optMap)
 
 	if len(errs) != 0 {
 		for _, err := range errs {
@@ -63,12 +63,12 @@ func main() {
 
 	configureUI()
 
-	if arg.GetB(ARG_VER) {
+	if options.GetB(OPT_VER) {
 		showAbout()
 		return
 	}
 
-	if arg.GetB(ARG_HELP) || len(args) == 0 {
+	if options.GetB(OPT_HELP) || len(args) == 0 {
 		showUsage()
 		return
 	}
@@ -94,7 +94,7 @@ func configureUI() {
 		}
 	}
 
-	if arg.GetB(ARG_NO_COLOR) {
+	if options.GetB(OPT_NO_COLOR) {
 		fmtc.DisableColors = true
 	}
 
@@ -147,7 +147,7 @@ func renderConfig(config *knf.Config) {
 			)
 		}
 
-		if arg.GetB(ARG_SEPARATORS) && sectionIndex < sectionsTotal-1 {
+		if options.GetB(OPT_SEPARATORS) && sectionIndex < sectionsTotal-1 {
 			fmtc.NewLine()
 		}
 	}
@@ -177,29 +177,31 @@ func getFormatString(maxSize int) string {
 
 // printError prints error message to console
 func printError(f string, a ...interface{}) {
-	fmtc.Printf("{r}"+f+"{!}\n", a...)
+	fmtc.Fprintf(os.Stderr, "{r}"+f+"{!}\n", a...)
 }
 
 // printError prints warning message to console
 func printWarn(f string, a ...interface{}) {
-	fmtc.Printf("{y}"+f+"{!}\n", a...)
+	fmtc.Fprintf(os.Stderr, "{y}"+f+"{!}\n", a...)
 }
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 
+// showUsage show usage info
 func showUsage() {
 	info := usage.NewInfo("", "config-file")
 
-	info.AddOption(ARG_SEPARATORS, "Add new lines between sections")
-	info.AddOption(ARG_NO_COLOR, "Disable colors in output")
-	info.AddOption(ARG_HELP, "Show this help message")
-	info.AddOption(ARG_VER, "Show version")
+	info.AddOption(OPT_SEPARATORS, "Add new lines between sections")
+	info.AddOption(OPT_NO_COLOR, "Disable colors in output")
+	info.AddOption(OPT_HELP, "Show this help message")
+	info.AddOption(OPT_VER, "Show version")
 
 	info.AddExample("app.conf", "Generate copy-paste code for app.conf")
 
 	info.Render()
 }
 
+// showAbout show info about version
 func showAbout() {
 	about := &usage.About{
 		App:     APP,
