@@ -8,9 +8,9 @@
 * [Contributing](#contributing)
 * [License](#license)
 
-## Installation
+### Installation
 
-### From source
+#### From source
 
 Before the initial install allows git to use redirects for [pkg.re](https://github.com/essentialkaos/pkgre) service (reason why you should do this described [here](https://github.com/essentialkaos/pkgre#git-support)):
 
@@ -30,11 +30,11 @@ If you want to update KNFGen to latest stable release, do:
 go get -u github.com/essentialkaos/knfgen
 ```
 
-### Prebuilt binaries
+#### Prebuilt binaries
 
 You can download prebuilt binaries for Linux and OS X from [EK Apps Repository](https://apps.kaos.io/knfgen/latest).
 
-## Usage
+### Usage
 
 ```
 Usage: knfgen {options} config-file
@@ -48,17 +48,19 @@ Options:
 
 ```
 
-## Build Status
+### Build Status
 
 | Branch | Status |
 |------------|--------|
 | `master` | [![Build Status](https://travis-ci.org/essentialkaos/knfgen.svg?branch=master)](https://travis-ci.org/essentialkaos/knfgen) |
 | `develop` | [![Build Status](https://travis-ci.org/essentialkaos/knfgen.svg?branch=develop)](https://travis-ci.org/essentialkaos/knfgen) |
 
-## Contributing
+### Contributing
 
 Before contributing to this project please read our [Contributing Guidelines](https://github.com/essentialkaos/contributing-guidelines#contributing-guidelines).
 
-## License
+### License
 
 [EKOL](https://essentialkaos.com/ekol)
+
+<p align="center"><a href="https://essentialkaos.com"><img src="https://gh.kaos.io/ekgh.svg"/></a></p>
