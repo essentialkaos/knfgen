@@ -20,6 +20,7 @@ import (
 	"pkg.re/essentialkaos/ek.v10/mathutil"
 	"pkg.re/essentialkaos/ek.v10/options"
 	"pkg.re/essentialkaos/ek.v10/usage"
+	"pkg.re/essentialkaos/ek.v10/usage/update"
 )
 
 // ////////////////////////////////////////////////////////////////////////////////// //
@@ -187,7 +188,7 @@ func printWarn(f string, a ...interface{}) {
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 
-// showUsage show usage info
+// showUsage shows usage info
 func showUsage() {
 	info := usage.NewInfo("", "config-file")
 
@@ -201,15 +202,16 @@ func showUsage() {
 	info.Render()
 }
 
-// showAbout show info about version
+// showAbout shows info about version
 func showAbout() {
 	about := &usage.About{
-		App:     APP,
-		Version: VER,
-		Desc:    DESC,
-		Year:    2006,
-		Owner:   "ESSENTIAL KAOS",
-		License: "Essential Kaos Open Source License <https://essentialkaos.com/ekol>",
+		App:           APP,
+		Version:       VER,
+		Desc:          DESC,
+		Year:          2006,
+		Owner:         "ESSENTIAL KAOS",
+		License:       "Essential Kaos Open Source License <https://essentialkaos.com/ekol>",
+		UpdateChecker: usage.UpdateChecker{"essentialkaos/knfgen", update.GitHubChecker},
 	}
 
 	about.Render()
