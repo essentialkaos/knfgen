@@ -1,6 +1,6 @@
-# KNFGen [![Build Status](https://travis-ci.org/essentialkaos/knfgen.svg?branch=master)](https://travis-ci.org/essentialkaos/knfgen) [![Go Report Card](https://goreportcard.com/badge/github.com/essentialkaos/knfgen)](https://goreportcard.com/report/github.com/essentialkaos/knfgen) [![codebeat badge](https://codebeat.co/badges/3ae560e1-1fef-4ca7-b46a-17558e105963)](https://codebeat.co/projects/github-com-essentialkaos-knfgen-master) [![License](https://gh.kaos.io/ekol.svg)](https://essentialkaos.com/ekol)
+# KNFGen [![Build Status](https://travis-ci.org/essentialkaos/knfgen.svg?branch=master)](https://travis-ci.org/essentialkaos/knfgen) [![Go Report Card](https://goreportcard.com/badge/github.com/essentialkaos/knfgen)](https://goreportcard.com/report/github.com/essentialkaos/knfgen) [![codebeat badge](https://codebeat.co/badges/3ae560e1-1fef-4ca7-b46a-17558e105963)](https://codebeat.co/projects/github-com-essentialkaos-knfgen-master) [![License](https://gh.kaos.st/ekol.svg)](https://essentialkaos.com/ekol)
 
-`KNFGen` is utility for generating go const code for [KNF](https://godoc.org/pkg.re/essentialkaos/ek.v7/knf) configs.
+`KNFGen` is utility for generating Go const code for [KNF](https://godoc.org/pkg.re/essentialkaos/ek.v10/knf) configs.
 
 * [Installation](#installation)
 * [Usage](#usage)
@@ -18,7 +18,7 @@ Before the initial install allows git to use redirects for [pkg.re](https://gith
 git config --global http.https://pkg.re.followRedirects true
 ```
 
-To build the KNFGen from scratch, make sure you have a working Go 1.7+ workspace ([instructions](https://golang.org/doc/install)), then:
+To build the KNFGen from scratch, make sure you have a working Go 1.10+ workspace ([instructions](https://golang.org/doc/install)), then:
 
 ```
 go get github.com/essentialkaos/knfgen
@@ -32,7 +32,7 @@ go get -u github.com/essentialkaos/knfgen
 
 #### Prebuilt binaries
 
-You can download prebuilt binaries for Linux and OS X from [EK Apps Repository](https://apps.kaos.io/knfgen/latest).
+You can download prebuilt binaries for Linux and OS X from [EK Apps Repository](https://apps.kaos.st/knfgen/latest).
 
 ### Usage
 
@@ -63,4 +63,4 @@ Before contributing to this project please read our [Contributing Guidelines](ht
 
 [EKOL](https://essentialkaos.com/ekol)
 
-<p align="center"><a href="https://essentialkaos.com"><img src="https://gh.kaos.io/ekgh.svg"/></a></p>
+<p align="center"><a href="https://essentialkaos.com"><img src="https://gh.kaos.st/ekgh.svg"/></a></p>
