@@ -1,12 +1,15 @@
-# KNFGen [![Build Status](https://travis-ci.org/essentialkaos/knfgen.svg?branch=master)](https://travis-ci.org/essentialkaos/knfgen) [![Go Report Card](https://goreportcard.com/badge/github.com/essentialkaos/knfgen)](https://goreportcard.com/report/github.com/essentialkaos/knfgen) [![codebeat badge](https://codebeat.co/badges/3ae560e1-1fef-4ca7-b46a-17558e105963)](https://codebeat.co/projects/github-com-essentialkaos-knfgen-master) [![License](https://gh.kaos.st/ekol.svg)](https://essentialkaos.com/ekol)
+<p align="center"><a href="#readme"><img src="https://gh.kaos.st/knfgen.svg"/></a></p>
+
+<p align="center"><a href="#installation">Installation</a> • <a href="#usage">Usage</a> • <a href="#build-status">Build Status</a> • <a href="#contributing">Contributing</a> • <a href="#license">License</a></p>
+
+<p align="center">
+  <a href="https://travis-ci.org/essentialkaos/knfgen"><img src="https://travis-ci.org/essentialkaos/knfgen.svg"></a>
+  <a href="https://goreportcard.com/report/github.com/essentialkaos/knfgen"><img src="https://goreportcard.com/badge/github.com/essentialkaos/knfgen"></a>
+  <a href="https://codebeat.co/projects/github-com-essentialkaos-knfgen-master"><img alt="codebeat badge" src="https://codebeat.co/badges/3ae560e1-1fef-4ca7-b46a-17558e105963" /></a>
+  <a href="https://essentialkaos.com/ekol"><img src="https://gh.kaos.st/ekol.svg"></a>
+</p>
 
 `KNFGen` is utility for generating Go const code for [KNF](https://godoc.org/pkg.re/essentialkaos/ek.v10/knf) configs.
-
-* [Installation](#installation)
-* [Usage](#usage)
-* [Build Status](#build-status)
-* [Contributing](#contributing)
-* [License](#license)
 
 ### Installation
 
