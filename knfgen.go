@@ -2,7 +2,7 @@ package main
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 //                                                                                    //
-//                     Copyright (c) 2009-2017 ESSENTIAL KAOS                         //
+//                     Copyright (c) 2009-2019 ESSENTIAL KAOS                         //
 //        Essential Kaos Open Source License <https://essentialkaos.com/ekol>         //
 //                                                                                    //
 // ////////////////////////////////////////////////////////////////////////////////// //
@@ -12,21 +12,22 @@ import (
 	"strconv"
 	"strings"
 
-	"pkg.re/essentialkaos/ek.v9/env"
-	"pkg.re/essentialkaos/ek.v9/fmtc"
-	"pkg.re/essentialkaos/ek.v9/fmtutil"
-	"pkg.re/essentialkaos/ek.v9/fsutil"
-	"pkg.re/essentialkaos/ek.v9/knf"
-	"pkg.re/essentialkaos/ek.v9/mathutil"
-	"pkg.re/essentialkaos/ek.v9/options"
-	"pkg.re/essentialkaos/ek.v9/usage"
+	"pkg.re/essentialkaos/ek.v10/env"
+	"pkg.re/essentialkaos/ek.v10/fmtc"
+	"pkg.re/essentialkaos/ek.v10/fmtutil"
+	"pkg.re/essentialkaos/ek.v10/fsutil"
+	"pkg.re/essentialkaos/ek.v10/knf"
+	"pkg.re/essentialkaos/ek.v10/mathutil"
+	"pkg.re/essentialkaos/ek.v10/options"
+	"pkg.re/essentialkaos/ek.v10/usage"
+	"pkg.re/essentialkaos/ek.v10/usage/update"
 )
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 const (
 	APP  = "KNFGen"
-	VER  = "0.6.0"
+	VER  = "0.7.0"
 	DESC = "Utility for generating Golang const code for KNF configs"
 )
 
@@ -76,7 +77,7 @@ func main() {
 	process(args[0])
 }
 
-// configureUI configure user interface
+// configureUI configures user interface
 func configureUI() {
 	envVars := env.Get()
 	term := envVars.GetS("TERM")
@@ -104,7 +105,7 @@ func configureUI() {
 	}
 }
 
-// process start config processing
+// process starts config processing
 func process(file string) {
 	config, err := knf.Read(file)
 
@@ -119,7 +120,7 @@ func process(file string) {
 	renderConfig(config)
 }
 
-// renderConfig render config data
+// renderConfig renders config data
 func renderConfig(config *knf.Config) {
 	if !rawOutput {
 		fmtutil.Separator(false)
@@ -159,7 +160,7 @@ func renderConfig(config *knf.Config) {
 	}
 }
 
-// formatConstName return const name
+// formatConstName returns const name
 func formatConstName(section, prop string) string {
 	fs := strings.ToUpper(section)
 	fp := strings.ToUpper(prop)
@@ -170,7 +171,7 @@ func formatConstName(section, prop string) string {
 	return fs + "_" + fp
 }
 
-// getFormatString return format string
+// getFormatString returns format string
 func getFormatString(maxSize int) string {
 	return "\t%-" + strconv.Itoa(maxSize) + "s = {y}\"%s:%s\"{!}\n"
 }
@@ -187,7 +188,7 @@ func printWarn(f string, a ...interface{}) {
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 
-// showUsage show usage info
+// showUsage shows usage info
 func showUsage() {
 	info := usage.NewInfo("", "config-file")
 
@@ -201,15 +202,16 @@ func showUsage() {
 	info.Render()
 }
 
-// showAbout show info about version
+// showAbout shows info about version
 func showAbout() {
 	about := &usage.About{
-		App:     APP,
-		Version: VER,
-		Desc:    DESC,
-		Year:    2006,
-		Owner:   "ESSENTIAL KAOS",
-		License: "Essential Kaos Open Source License <https://essentialkaos.com/ekol>",
+		App:           APP,
+		Version:       VER,
+		Desc:          DESC,
+		Year:          2006,
+		Owner:         "ESSENTIAL KAOS",
+		License:       "Essential Kaos Open Source License <https://essentialkaos.com/ekol>",
+		UpdateChecker: usage.UpdateChecker{"essentialkaos/knfgen", update.GitHubChecker},
 	}
 
 	about.Render()
