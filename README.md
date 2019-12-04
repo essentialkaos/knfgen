@@ -1,7 +1,7 @@
 <p align="center"><a href="#readme"><img src="https://gh.kaos.st/knfgen.svg"/></a></p>
 
 <p align="center">
-  <a href="https://travis-ci.org/essentialkaos/knfgen"><img src="https://travis-ci.org/essentialkaos/knfgen.svg"></a>
+  <a href="https://travis-ci.com/essentialkaos/knfgen"><img src="https://travis-ci.com/essentialkaos/knfgen.svg"></a>
   <a href="https://goreportcard.com/report/github.com/essentialkaos/knfgen"><img src="https://goreportcard.com/badge/github.com/essentialkaos/knfgen"></a>
   <a href="https://codebeat.co/projects/github-com-essentialkaos-knfgen-master"><img alt="codebeat badge" src="https://codebeat.co/badges/3ae560e1-1fef-4ca7-b46a-17558e105963" /></a>
   <a href="https://essentialkaos.com/ekol"><img src="https://gh.kaos.st/ekol.svg"></a>
@@ -57,8 +57,8 @@ Options:
 
 | Branch | Status |
 |------------|--------|
-| `master` | [![Build Status](https://travis-ci.org/essentialkaos/knfgen.svg?branch=master)](https://travis-ci.org/essentialkaos/knfgen) |
-| `develop` | [![Build Status](https://travis-ci.org/essentialkaos/knfgen.svg?branch=develop)](https://travis-ci.org/essentialkaos/knfgen) |
+| `master` | [![Build Status](https://travis-ci.com/essentialkaos/knfgen.svg?branch=master)](https://travis-ci.com/essentialkaos/knfgen) |
+| `develop` | [![Build Status](https://travis-ci.com/essentialkaos/knfgen.svg?branch=develop)](https://travis-ci.com/essentialkaos/knfgen) |
 
 ### Contributing
 
