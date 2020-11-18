@@ -1,7 +1,7 @@
 <p align="center"><a href="#readme"><img src="https://gh.kaos.st/knfgen.svg"/></a></p>
 
 <p align="center">
-  <a href="https://travis-ci.com/essentialkaos/knfgen"><img src="https://travis-ci.com/essentialkaos/knfgen.svg"></a>
+  <a href="https://github.com/essentialkaos/knfgen/actions"><img src="https://github.com/essentialkaos/knfgen/workflows/CI/badge.svg" alt="GitHub Actions Status" /></a>
   <a href="https://github.com/essentialkaos/knfgen/actions?query=workflow%3ACodeQL"><img src="https://github.com/essentialkaos/knfgen/workflows/CodeQL/badge.svg" /></a>
   <a href="https://goreportcard.com/report/github.com/essentialkaos/knfgen"><img src="https://goreportcard.com/badge/github.com/essentialkaos/knfgen"></a>
   <a href="https://codebeat.co/projects/github-com-essentialkaos-knfgen-master"><img alt="codebeat badge" src="https://codebeat.co/badges/3ae560e1-1fef-4ca7-b46a-17558e105963" /></a>
@@ -18,13 +18,7 @@
 
 #### From source
 
-Before the initial install allows git to use redirects for [pkg.re](https://github.com/essentialkaos/pkgre) service (reason why you should do this described [here](https://github.com/essentialkaos/pkgre#git-support)):
-
-```
-git config --global http.https://pkg.re.followRedirects true
-```
-
-To build the KNFGen from scratch, make sure you have a working Go 1.12+ workspace ([instructions](https://golang.org/doc/install)), then:
+To build the KNFGen from scratch, make sure you have a working Go 1.14+ workspace ([instructions](https://golang.org/doc/install)), then:
 
 ```
 go get github.com/essentialkaos/knfgen
@@ -39,6 +33,12 @@ go get -u github.com/essentialkaos/knfgen
 #### Prebuilt binaries
 
 You can download prebuilt binaries for Linux and OS X from [EK Apps Repository](https://apps.kaos.st/knfgen/latest).
+
+To install the latest prebuilt version of knfgen, do:
+
+```bash
+bash <(curl -fsSL https://apps.kaos.st/get) knfgen
+```
 
 ### Usage
 
@@ -58,8 +58,8 @@ Options:
 
 | Branch | Status |
 |------------|--------|
-| `master` | [![Build Status](https://travis-ci.com/essentialkaos/knfgen.svg?branch=master)](https://travis-ci.com/essentialkaos/knfgen) |
-| `develop` | [![Build Status](https://travis-ci.com/essentialkaos/knfgen.svg?branch=develop)](https://travis-ci.com/essentialkaos/knfgen) |
+| `master` | [![CI](https://github.com/essentialkaos/knfgen/workflows/CI/badge.svg?branch=master)](https://github.com/essentialkaos/knfgen/actions) |
+| `develop` | [![CI](https://github.com/essentialkaos/knfgen/workflows/CI/badge.svg?branch=develop)](https://github.com/essentialkaos/knfgen/actions) |
 
 ### Contributing
 
