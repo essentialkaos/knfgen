@@ -1,10 +1,10 @@
 <p align="center"><a href="#readme"><img src="https://gh.kaos.st/knfgen.svg"/></a></p>
 
 <p align="center">
-  <a href="https://github.com/essentialkaos/knfgen/actions"><img src="https://github.com/essentialkaos/knfgen/workflows/CI/badge.svg" alt="GitHub Actions Status" /></a>
-  <a href="https://github.com/essentialkaos/knfgen/actions?query=workflow%3ACodeQL"><img src="https://github.com/essentialkaos/knfgen/workflows/CodeQL/badge.svg" /></a>
-  <a href="https://goreportcard.com/report/github.com/essentialkaos/knfgen"><img src="https://goreportcard.com/badge/github.com/essentialkaos/knfgen"></a>
-  <a href="https://codebeat.co/projects/github-com-essentialkaos-knfgen-master"><img alt="codebeat badge" src="https://codebeat.co/badges/3ae560e1-1fef-4ca7-b46a-17558e105963" /></a>
+  <a href="https://kaos.sh/w/knfgen/ci"><img src="https://kaos.sh/w/knfgen/ci.svg" alt="GitHub Actions CI Status" /></a>
+  <a href="https://kaos.sh/w/knfgen/codeql"><img src="https://kaos.sh/w/knfgen/codeql.svg" alt="GitHub Actions CodeQL Status" /></a>
+  <a href="https://kaos.sh/r/knfgen"><img src="https://kaos.sh/r/knfgen.svg" alt="GoReportCard" /></a>
+  <a href="https://kaos.sh/b/knfgen"><img src="https://kaos.sh/b/3ae560e1-1fef-4ca7-b46a-17558e105963.svg" alt="Codebeat badge" /></a>
   <a href="#license"><img src="https://gh.kaos.st/apache2.svg"></a>
 </p>
 
@@ -12,22 +12,16 @@
 
 <br/>
 
-`KNFGen` is utility for generating Go const code for [KNF](https://godoc.org/pkg.re/essentialkaos/ek.v10/knf) configs.
+`KNFGen` is utility for generating Go const code for [KNF](https://pkg.go.dev/pkg.re/essentialkaos/ek.v12@v12.20.4+incompatible/knf) configs.
 
 ### Installation
 
 #### From source
 
-To build the KNFGen from scratch, make sure you have a working Go 1.14+ workspace ([instructions](https://golang.org/doc/install)), then:
+To build the KNFGen from scratch, make sure you have a working Go 1.15+ workspace ([instructions](https://golang.org/doc/install)), then:
 
 ```
-go get github.com/essentialkaos/knfgen
-```
-
-If you want to update KNFGen to latest stable release, do:
-
-```
-go get -u github.com/essentialkaos/knfgen
+go install github.com/essentialkaos/knfgen
 ```
 
 #### Prebuilt binaries
@@ -58,8 +52,8 @@ Options:
 
 | Branch | Status |
 |------------|--------|
-| `master` | [![CI](https://github.com/essentialkaos/knfgen/workflows/CI/badge.svg?branch=master)](https://github.com/essentialkaos/knfgen/actions) |
-| `develop` | [![CI](https://github.com/essentialkaos/knfgen/workflows/CI/badge.svg?branch=develop)](https://github.com/essentialkaos/knfgen/actions) |
+| `master` | [![CI](https://kaos.sh/w/knfgen/ci.svg?branch=master)](https://kaos.sh/w/knfgen/ci?query=branch:master) |
+| `develop` | [![CI](https://kaos.sh/w/knfgen/ci.svg?branch=develop)](https://kaos.sh/w/knfgen/ci?query=branch:develop) |
 
 ### Contributing
 
