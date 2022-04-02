@@ -18,7 +18,7 @@
 
 #### From source
 
-To build the KNFGen from scratch, make sure you have a working Go 1.16+ workspace ([instructions](https://golang.org/doc/install)), then:
+To build the KNFGen from scratch, make sure you have a working Go 1.17+ workspace ([instructions](https://golang.org/doc/install)), then:
 
 ```
 go install github.com/essentialkaos/knfgen
@@ -26,7 +26,7 @@ go install github.com/essentialkaos/knfgen
 
 #### Prebuilt binaries
 
-You can download prebuilt binaries for Linux and OS X from [EK Apps Repository](https://apps.kaos.st/knfgen/latest).
+You can download prebuilt binaries for Linux and macOS from [EK Apps Repository](https://apps.kaos.st/knfgen/latest).
 
 To install the latest prebuilt version of knfgen, do:
 
