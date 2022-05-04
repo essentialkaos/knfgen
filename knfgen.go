@@ -27,7 +27,7 @@ import (
 
 const (
 	APP  = "KNFGen"
-	VER  = "0.7.2"
+	VER  = "0.7.3"
 	DESC = "Utility for generating Golang const code for KNF configs"
 )
 
@@ -74,7 +74,7 @@ func main() {
 		return
 	}
 
-	process(args[0])
+	process(args.Get(0).Clean().String())
 }
 
 // configureUI configures user interface
