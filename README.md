@@ -12,13 +12,13 @@
 
 <br/>
 
-`KNFGen` is utility for generating Go const code for [KNF](https://pkg.go.dev/pkg.re/essentialkaos/ek.v12@v12.20.4+incompatible/knf) configs.
+`knfgen` is utility for generating Go const code for [KNF](https://kaos.sh/knf-spec) configuration files.
 
 ### Installation
 
 #### From source
 
-To build the KNFGen from scratch, make sure you have a working Go 1.17+ workspace ([instructions](https://golang.org/doc/install)), then:
+To build the `knfgen` from scratch, make sure you have a working Go 1.19+ workspace ([instructions](https://golang.org/doc/install)), then:
 
 ```
 go install github.com/essentialkaos/knfgen
@@ -28,7 +28,7 @@ go install github.com/essentialkaos/knfgen
 
 You can download prebuilt binaries for Linux and macOS from [EK Apps Repository](https://apps.kaos.st/knfgen/latest).
 
-To install the latest prebuilt version of knfgen, do:
+To install the latest prebuilt version of `knfgen`, do:
 
 ```bash
 bash <(curl -fsSL https://apps.kaos.st/get) knfgen
@@ -37,15 +37,19 @@ bash <(curl -fsSL https://apps.kaos.st/get) knfgen
 ### Usage
 
 ```
-Usage: knfgen {options} config-file
-    
-Options:
-    
-  --separators, -s     Add new lines between sections
-  --no-color, -nc      Disable colors in output
-  --help, -h           Show this help message
-  --version, -v        Show version
+Usage: knfgen {options} file
 
+Options
+
+  --separators, -s    Add new lines between sections
+  --no-color, -nc     Disable colors in output
+  --help, -h          Show this help message
+  --version, -v       Show version
+
+Examples
+
+  knfgen app.knf
+  Generate copy-paste code for app.knf
 ```
 
 ### Build Status

@@ -26,9 +26,9 @@ import (
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 const (
-	APP  = "KNFGen"
-	VER  = "0.7.3"
-	DESC = "Utility for generating Golang const code for KNF configs"
+	APP  = "knfgen"
+	VER  = "0.7.4"
+	DESC = "Utility for generating Golang const code for KNF configuration files"
 )
 
 const (
@@ -190,14 +190,14 @@ func printWarn(f string, a ...interface{}) {
 
 // showUsage shows usage info
 func showUsage() {
-	info := usage.NewInfo("", "config-file")
+	info := usage.NewInfo("", "file")
 
 	info.AddOption(OPT_SEPARATORS, "Add new lines between sections")
 	info.AddOption(OPT_NO_COLOR, "Disable colors in output")
 	info.AddOption(OPT_HELP, "Show this help message")
 	info.AddOption(OPT_VER, "Show version")
 
-	info.AddExample("app.conf", "Generate copy-paste code for app.conf")
+	info.AddExample("app.knf", "Generate copy-paste code for app.knf")
 
 	info.Render()
 }
