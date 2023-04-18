@@ -18,10 +18,10 @@
 
 #### From source
 
-To build the `knfgen` from scratch, make sure you have a working Go 1.19+ workspace ([instructions](https://golang.org/doc/install)), then:
+To build the `knfgen` from scratch, make sure you have a working Go 1.19+ workspace ([instructions](https://go.dev/doc/install)), then:
 
 ```
-go install github.com/essentialkaos/knfgen
+go install github.com/essentialkaos/knfgen@latest
 ```
 
 #### Prebuilt binaries
