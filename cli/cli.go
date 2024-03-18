@@ -207,7 +207,7 @@ func renderUnitedConfig(config *knf.Config) {
 
 	fmt.Println("}\n")
 
-	fmtc.Println(`{s-}// combineConfigs combines knf cofiguration with options and environment variables{!}`)
+	fmtc.Println(`{s-}// combineConfigs combines knf configuration with options and environment variables{!}`)
 	fmtc.Println(`{*}func{!} {b}combineConfigs{!}() {`)
 	fmtc.Println(tabSymbol + "knfu.{r*}Combine{!}(")
 
