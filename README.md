@@ -18,7 +18,7 @@
 
 #### From source
 
-To build the `knfgen` from scratch, make sure you have a working Go 1.19+ workspace ([instructions](https://go.dev/doc/install)), then:
+To build the `knfgen` from scratch, make sure you have a working Go 1.21+ workspace ([instructions](https://go.dev/doc/install)), then:
 
 ```
 go install github.com/essentialkaos/knfgen@latest
@@ -41,7 +41,8 @@ Usage: knfgen {options} file
 
 Options
 
-  --separators, -s    Add new lines between sections
+  --separators, -S    Add new lines between sections
+  --united, -U        Generate code for united configuration
   --no-color, -nc     Disable colors in output
   --help, -h          Show this help message
   --version, -v       Show version
