@@ -56,7 +56,7 @@ var optMap = options.Map{
 	OPT_UNITED:     {Type: options.BOOL},
 	OPT_NO_COLOR:   {Type: options.BOOL},
 	OPT_HELP:       {Type: options.BOOL},
-	OPT_VER:        {Type: options.BOOL},
+	OPT_VER:        {Type: options.MIXED},
 
 	OPT_VERB_VER:     {Type: options.BOOL},
 	OPT_COMPLETION:   {},
