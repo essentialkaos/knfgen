@@ -18,6 +18,9 @@ import (
 	"github.com/essentialkaos/ek/v12/mathutil"
 	"github.com/essentialkaos/ek/v12/options"
 	"github.com/essentialkaos/ek/v12/pager"
+	"github.com/essentialkaos/ek/v12/support"
+	"github.com/essentialkaos/ek/v12/support/apps"
+	"github.com/essentialkaos/ek/v12/support/deps"
 	"github.com/essentialkaos/ek/v12/terminal/tty"
 	"github.com/essentialkaos/ek/v12/usage"
 	"github.com/essentialkaos/ek/v12/usage/completion/bash"
@@ -25,15 +28,13 @@ import (
 	"github.com/essentialkaos/ek/v12/usage/completion/zsh"
 	"github.com/essentialkaos/ek/v12/usage/man"
 	"github.com/essentialkaos/ek/v12/usage/update"
-
-	"github.com/essentialkaos/knfgen/support"
 )
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 const (
 	APP  = "knfgen"
-	VER  = "1.0.0"
+	VER  = "1.0.1"
 	DESC = "Utility for generating Golang const code for KNF configuration files"
 )
 
@@ -97,7 +98,11 @@ func Run(gitRev string, gomod []byte) {
 		genAbout(gitRev).Print(options.GetS(OPT_VER))
 		os.Exit(0)
 	case options.GetB(OPT_VERB_VER):
-		support.Print(APP, VER, gitRev, gomod)
+		support.Collect(APP, VER).
+			WithRevision(gitRev).
+			WithDeps(deps.Extract(gomod)).
+			WithApps(apps.Golang()).
+			Print()
 		os.Exit(0)
 	case options.GetB(OPT_HELP) || len(args) == 0:
 		genUsage().Print()
@@ -192,6 +197,7 @@ func renderConfig(config *knf.Config) {
 	printSeparator()
 }
 
+// renderUnitedConfig renders united config code
 func renderUnitedConfig(config *knf.Config) {
 	fmtc.Println(`{s-}// addExtraOptions adds extra options{!}`)
 	fmtc.Println(`{*}func{!} {b}addExtraOptions{!}({&}m{!} {*}options.Map{!}) {`)
@@ -305,12 +311,12 @@ func genAbout(gitRev string) *usage.About {
 		VersionColorTag: colorTagVer,
 		DescSeparator:   "{s}—{!}",
 
-		License:       "Apache License, Version 2.0 <https://www.apache.org/licenses/LICENSE-2.0>",
-		UpdateChecker: usage.UpdateChecker{"essentialkaos/knfgen", update.GitHubChecker},
+		License: "Apache License, Version 2.0 <https://www.apache.org/licenses/LICENSE-2.0>",
 	}
 
 	if gitRev != "" {
 		about.Build = "git:" + gitRev
+		about.UpdateChecker = usage.UpdateChecker{"essentialkaos/knfgen", update.GitHubChecker}
 	}
 
 	return about
