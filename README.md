@@ -36,22 +36,7 @@ bash <(curl -fsSL https://apps.kaos.st/get) knfgen
 
 ### Usage
 
-```
-Usage: knfgen {options} file
-
-Options
-
-  --separators, -S    Add new lines between sections
-  --united, -U        Generate code for united configuration
-  --no-color, -nc     Disable colors in output
-  --help, -h          Show this help message
-  --version, -v       Show version
-
-Examples
-
-  knfgen app.knf
-  Generate copy-paste code for app.knf
-```
+<img src=".github/images/usage.svg" />
 
 ### Build Status
 
