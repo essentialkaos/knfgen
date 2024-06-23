@@ -21,6 +21,7 @@ import (
 	"github.com/essentialkaos/ek/v12/support"
 	"github.com/essentialkaos/ek/v12/support/apps"
 	"github.com/essentialkaos/ek/v12/support/deps"
+	"github.com/essentialkaos/ek/v12/terminal"
 	"github.com/essentialkaos/ek/v12/terminal/tty"
 	"github.com/essentialkaos/ek/v12/usage"
 	"github.com/essentialkaos/ek/v12/usage/completion/bash"
@@ -34,7 +35,7 @@ import (
 
 const (
 	APP  = "knfgen"
-	VER  = "1.0.1"
+	VER  = "1.0.2"
 	DESC = "Utility for generating Golang const code for KNF configuration files"
 )
 
@@ -78,11 +79,9 @@ func Run(gitRev string, gomod []byte) {
 
 	args, errs := options.Parse(optMap)
 
-	if len(errs) != 0 {
-		for _, err := range errs {
-			printError(err.Error())
-		}
-
+	if !errs.IsEmpty() {
+		terminal.Error("Options parsing errors:")
+		terminal.Error(errs.String())
 		os.Exit(1)
 	}
 
@@ -146,7 +145,7 @@ func process(file string) {
 	config, err := knf.Read(file)
 
 	if err != nil {
-		printError(err.Error())
+		terminal.Error(err)
 		os.Exit(1)
 	}
 
@@ -253,11 +252,6 @@ func getFormatString(maxSize int) string {
 	return tabSymbol + "%-" + strconv.Itoa(maxSize) + "s = {y}\"%s:%s\"{!}\n"
 }
 
-// printError prints error message to console
-func printError(f string, a ...interface{}) {
-	fmtc.Fprintf(os.Stderr, "{r}"+f+"{!}\n", a...)
-}
-
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 // printCompletion prints completion for given shell
@@ -266,11 +260,11 @@ func printCompletion() int {
 
 	switch options.GetS(OPT_COMPLETION) {
 	case "bash":
-		fmt.Print(bash.Generate(info, "atlassian-cloud-backuper"))
+		fmt.Print(bash.Generate(info, APP))
 	case "fish":
-		fmt.Print(fish.Generate(info, "atlassian-cloud-backuper"))
+		fmt.Print(fish.Generate(info, APP))
 	case "zsh":
-		fmt.Print(zsh.Generate(info, optMap, "atlassian-cloud-backuper"))
+		fmt.Print(zsh.Generate(info, optMap, APP))
 	default:
 		return 1
 	}
