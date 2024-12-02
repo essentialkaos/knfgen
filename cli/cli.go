@@ -179,7 +179,7 @@ func renderConfig(config *knf.Config) {
 
 	for sectionIndex, section := range config.Sections() {
 		for _, prop := range config.Props(section) {
-			fmtc.Printf(
+			fmtc.Printfn(
 				formatString,
 				formatConstName(section, prop),
 				section, prop,
@@ -203,8 +203,8 @@ func renderUnitedConfig(config *knf.Config) {
 
 	for _, section := range config.Sections() {
 		for _, prop := range config.Props(section) {
-			fmtc.Printf(
-				tabSymbol+"m.{r*}Set{!}({r*}knfu.O{!}(%s), &options.{*}V{!}{s}{}{!})\n",
+			fmtc.Printfn(
+				tabSymbol+"m.{r*}Set{!}({r*}knfu.O{!}(%s), &options.{*}V{!}{s}{}{!})",
 				formatConstName(section, prop),
 			)
 		}
@@ -218,8 +218,8 @@ func renderUnitedConfig(config *knf.Config) {
 
 	for _, section := range config.Sections() {
 		for _, prop := range config.Props(section) {
-			fmtc.Printf(
-				tabSymbol+tabSymbol+"knfu.{r*}Simple{!}(%s),\n",
+			fmtc.Printfn(
+				tabSymbol+tabSymbol+"knfu.{r*}Simple{!}(%s),",
 				formatConstName(section, prop),
 			)
 		}
@@ -244,12 +244,12 @@ func formatConstName(section, prop string) string {
 
 // printSeparator prints separator
 func printSeparator() {
-	fmtc.Printf("\n{s-}// %s //{!}\n\n", strings.Repeat("/", 72))
+	fmtc.Printfn("\n{s-}// %s //{!}\n", strings.Repeat("/", 72))
 }
 
 // getFormatString returns format string
 func getFormatString(maxSize int) string {
-	return tabSymbol + "%-" + strconv.Itoa(maxSize) + "s = {y}\"%s:%s\"{!}\n"
+	return tabSymbol + "%-" + strconv.Itoa(maxSize) + "s = {y}\"%s:%s\"{!}"
 }
 
 // ////////////////////////////////////////////////////////////////////////////////// //
