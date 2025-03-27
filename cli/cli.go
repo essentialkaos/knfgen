@@ -8,34 +8,35 @@ package cli
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 import (
+	"bytes"
 	"fmt"
 	"os"
 	"strconv"
 	"strings"
 
-	"github.com/essentialkaos/ek/v12/fmtc"
-	"github.com/essentialkaos/ek/v12/knf"
-	"github.com/essentialkaos/ek/v12/mathutil"
-	"github.com/essentialkaos/ek/v12/options"
-	"github.com/essentialkaos/ek/v12/pager"
-	"github.com/essentialkaos/ek/v12/support"
-	"github.com/essentialkaos/ek/v12/support/apps"
-	"github.com/essentialkaos/ek/v12/support/deps"
-	"github.com/essentialkaos/ek/v12/terminal"
-	"github.com/essentialkaos/ek/v12/terminal/tty"
-	"github.com/essentialkaos/ek/v12/usage"
-	"github.com/essentialkaos/ek/v12/usage/completion/bash"
-	"github.com/essentialkaos/ek/v12/usage/completion/fish"
-	"github.com/essentialkaos/ek/v12/usage/completion/zsh"
-	"github.com/essentialkaos/ek/v12/usage/man"
-	"github.com/essentialkaos/ek/v12/usage/update"
+	"github.com/essentialkaos/ek/v13/fmtc"
+	"github.com/essentialkaos/ek/v13/knf"
+	"github.com/essentialkaos/ek/v13/mathutil"
+	"github.com/essentialkaos/ek/v13/options"
+	"github.com/essentialkaos/ek/v13/pager"
+	"github.com/essentialkaos/ek/v13/support"
+	"github.com/essentialkaos/ek/v13/support/apps"
+	"github.com/essentialkaos/ek/v13/support/deps"
+	"github.com/essentialkaos/ek/v13/terminal"
+	"github.com/essentialkaos/ek/v13/terminal/tty"
+	"github.com/essentialkaos/ek/v13/usage"
+	"github.com/essentialkaos/ek/v13/usage/completion/bash"
+	"github.com/essentialkaos/ek/v13/usage/completion/fish"
+	"github.com/essentialkaos/ek/v13/usage/completion/zsh"
+	"github.com/essentialkaos/ek/v13/usage/man"
+	"github.com/essentialkaos/ek/v13/usage/update"
 )
 
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 const (
 	APP  = "knfgen"
-	VER  = "1.0.2"
+	VER  = "1.0.3"
 	DESC = "Utility for generating Golang const code for KNF configuration files"
 )
 
@@ -81,7 +82,7 @@ func Run(gitRev string, gomod []byte) {
 
 	if !errs.IsEmpty() {
 		terminal.Error("Options parsing errors:")
-		terminal.Error(errs.String())
+		terminal.Error(errs.Error("- "))
 		os.Exit(1)
 	}
 
@@ -179,7 +180,7 @@ func renderConfig(config *knf.Config) {
 
 	for sectionIndex, section := range config.Sections() {
 		for _, prop := range config.Props(section) {
-			fmtc.Printf(
+			fmtc.Printfn(
 				formatString,
 				formatConstName(section, prop),
 				section, prop,
@@ -198,35 +199,32 @@ func renderConfig(config *knf.Config) {
 
 // renderUnitedConfig renders united config code
 func renderUnitedConfig(config *knf.Config) {
-	fmtc.Println(`{s-}// addExtraOptions adds extra options{!}`)
-	fmtc.Println(`{*}func{!} {b}addExtraOptions{!}({&}m{!} {*}options.Map{!}) {`)
+	fmtc.Println(tabSymbol + "knfu.{r*}CombineSimple{!}(")
+	fmtc.Println(strings.Repeat(tabSymbol, 2) + "config{s},{!}")
+
+	buf := &bytes.Buffer{}
 
 	for _, section := range config.Sections() {
+		buf.Reset()
+		buf.WriteString(strings.Repeat(tabSymbol, 2))
+
 		for _, prop := range config.Props(section) {
-			fmtc.Printf(
-				tabSymbol+"m.{r*}Set{!}({r*}knfu.O{!}(%s), &options.{*}V{!}{s}{}{!})\n",
-				formatConstName(section, prop),
-			)
+			propName := formatConstName(section, prop)
+
+			if buf.Len()+len(propName) >= 88 {
+				fmtc.Println(buf.String())
+				buf.Reset()
+				buf.WriteString(strings.Repeat(tabSymbol, 2))
+			}
+
+			buf.WriteString(propName)
+			buf.WriteString("{s},{!} ")
 		}
-	}
 
-	fmt.Println("}\n")
-
-	fmtc.Println(`{s-}// combineConfigs combines knf configuration with options and environment variables{!}`)
-	fmtc.Println(`{*}func{!} {b}combineConfigs{!}() {`)
-	fmtc.Println(tabSymbol + "knfu.{r*}Combine{!}(")
-
-	for _, section := range config.Sections() {
-		for _, prop := range config.Props(section) {
-			fmtc.Printf(
-				tabSymbol+tabSymbol+"knfu.{r*}Simple{!}(%s),\n",
-				formatConstName(section, prop),
-			)
-		}
+		fmtc.Println(strings.TrimRight(buf.String(), " "))
 	}
 
 	fmt.Println(tabSymbol + ")")
-	fmt.Println("}")
 
 	printSeparator()
 }
@@ -244,12 +242,12 @@ func formatConstName(section, prop string) string {
 
 // printSeparator prints separator
 func printSeparator() {
-	fmtc.Printf("\n{s-}// %s //{!}\n\n", strings.Repeat("/", 72))
+	fmtc.Printfn("\n{s-}// %s //{!}\n", strings.Repeat("/", 72))
 }
 
 // getFormatString returns format string
 func getFormatString(maxSize int) string {
-	return tabSymbol + "%-" + strconv.Itoa(maxSize) + "s = {y}\"%s:%s\"{!}\n"
+	return tabSymbol + "%-" + strconv.Itoa(maxSize) + "s {s}={!} {y}\"%s:%s\"{!}"
 }
 
 // ////////////////////////////////////////////////////////////////////////////////// //
@@ -281,13 +279,16 @@ func printMan() {
 func genUsage() *usage.Info {
 	info := usage.NewInfo("", "file")
 
+	info.AppNameColorTag = colorTagApp
+
 	info.AddOption(OPT_SEPARATORS, "Add new lines between sections")
 	info.AddOption(OPT_UNITED, "Generate code for united configuration")
 	info.AddOption(OPT_NO_COLOR, "Disable colors in output")
 	info.AddOption(OPT_HELP, "Show this help message")
 	info.AddOption(OPT_VER, "Show version")
 
-	info.AddExample("app.knf", "Generate copy-paste code for app.knf")
+	info.AddExample("app.knf", "Generate copy-paste code for app")
+	info.AddExample("-U app.knf", "Generate copy-paste code for app with united config part")
 
 	return info
 }

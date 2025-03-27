@@ -3,7 +3,6 @@
 <p align="center">
   <a href="https://kaos.sh/w/knfgen/ci"><img src="https://kaos.sh/w/knfgen/ci.svg" alt="GitHub Actions CI Status" /></a>
   <a href="https://kaos.sh/w/knfgen/codeql"><img src="https://kaos.sh/w/knfgen/codeql.svg" alt="GitHub Actions CodeQL Status" /></a>
-  <a href="https://kaos.sh/b/knfgen"><img src="https://kaos.sh/b/3ae560e1-1fef-4ca7-b46a-17558e105963.svg" alt="Codebeat badge" /></a>
   <a href="#license"><img src=".github/images/license.svg"/></a>
 </p>
 
@@ -17,7 +16,7 @@
 
 #### From source
 
-To build the `knfgen` from scratch, make sure you have a working Go 1.21+ workspace ([instructions](https://go.dev/doc/install)), then:
+To build the `knfgen` from scratch, make sure you have a working [Go 1.23+](https://github.com/essentialkaos/.github/blob/master/GO-VERSION-SUPPORT.md) workspace ([instructions](https://go.dev/doc/install)), then:
 
 ```
 go install github.com/essentialkaos/knfgen@latest
