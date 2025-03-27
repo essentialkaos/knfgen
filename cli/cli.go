@@ -18,6 +18,7 @@ import (
 	"github.com/essentialkaos/ek/v13/mathutil"
 	"github.com/essentialkaos/ek/v13/options"
 	"github.com/essentialkaos/ek/v13/pager"
+	"github.com/essentialkaos/ek/v13/strutil"
 	"github.com/essentialkaos/ek/v13/support"
 	"github.com/essentialkaos/ek/v13/support/apps"
 	"github.com/essentialkaos/ek/v13/support/deps"
@@ -35,7 +36,7 @@ import (
 
 const (
 	APP  = "knfgen"
-	VER  = "1.0.2"
+	VER  = "1.0.3"
 	DESC = "Utility for generating Golang const code for KNF configuration files"
 )
 
@@ -198,35 +199,20 @@ func renderConfig(config *knf.Config) {
 
 // renderUnitedConfig renders united config code
 func renderUnitedConfig(config *knf.Config) {
-	fmtc.Println(`{s-}// addExtraOptions adds extra options{!}`)
-	fmtc.Println(`{*}func{!} {b}addExtraOptions{!}({&}m{!} {*}options.Map{!}) {`)
+	fmtc.Println(tabSymbol + "knfu.{r*}CombineSimple{!}(")
+	fmtc.Println(strings.Repeat(tabSymbol, 2) + "config,")
 
 	for _, section := range config.Sections() {
-		for _, prop := range config.Props(section) {
-			fmtc.Printfn(
-				tabSymbol+"m.{r*}Set{!}({r*}knfu.O{!}(%s), &options.{*}V{!}{s}{}{!})",
-				formatConstName(section, prop),
-			)
-		}
-	}
-
-	fmt.Println("}\n")
-
-	fmtc.Println(`{s-}// combineConfigs combines knf configuration with options and environment variables{!}`)
-	fmtc.Println(`{*}func{!} {b}combineConfigs{!}() {`)
-	fmtc.Println(tabSymbol + "knfu.{r*}Combine{!}(")
-
-	for _, section := range config.Sections() {
-		for _, prop := range config.Props(section) {
-			fmtc.Printfn(
-				tabSymbol+tabSymbol+"knfu.{r*}Simple{!}(%s),",
-				formatConstName(section, prop),
-			)
-		}
+		fmtc.Printfn(
+			"%s%s,",
+			strings.Repeat(tabSymbol, 2),
+			strutil.JoinFunc(config.Props(section), ", ", func(s string) string {
+				return formatConstName(section, s)
+			}),
+		)
 	}
 
 	fmt.Println(tabSymbol + ")")
-	fmt.Println("}")
 
 	printSeparator()
 }
