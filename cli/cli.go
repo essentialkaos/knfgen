@@ -8,6 +8,7 @@ package cli
 // ////////////////////////////////////////////////////////////////////////////////// //
 
 import (
+	"bytes"
 	"fmt"
 	"os"
 	"strconv"
@@ -18,7 +19,6 @@ import (
 	"github.com/essentialkaos/ek/v13/mathutil"
 	"github.com/essentialkaos/ek/v13/options"
 	"github.com/essentialkaos/ek/v13/pager"
-	"github.com/essentialkaos/ek/v13/strutil"
 	"github.com/essentialkaos/ek/v13/support"
 	"github.com/essentialkaos/ek/v13/support/apps"
 	"github.com/essentialkaos/ek/v13/support/deps"
@@ -200,16 +200,28 @@ func renderConfig(config *knf.Config) {
 // renderUnitedConfig renders united config code
 func renderUnitedConfig(config *knf.Config) {
 	fmtc.Println(tabSymbol + "knfu.{r*}CombineSimple{!}(")
-	fmtc.Println(strings.Repeat(tabSymbol, 2) + "config,")
+	fmtc.Println(strings.Repeat(tabSymbol, 2) + "config{s},{!}")
+
+	buf := &bytes.Buffer{}
 
 	for _, section := range config.Sections() {
-		fmtc.Printfn(
-			"%s%s,",
-			strings.Repeat(tabSymbol, 2),
-			strutil.JoinFunc(config.Props(section), ", ", func(s string) string {
-				return formatConstName(section, s)
-			}),
-		)
+		buf.Reset()
+		buf.WriteString(strings.Repeat(tabSymbol, 2))
+
+		for _, prop := range config.Props(section) {
+			propName := formatConstName(section, prop)
+
+			if buf.Len()+len(propName) >= 88 {
+				fmtc.Println(buf.String())
+				buf.Reset()
+				buf.WriteString(strings.Repeat(tabSymbol, 2))
+			}
+
+			buf.WriteString(propName)
+			buf.WriteString("{s},{!} ")
+		}
+
+		fmtc.Println(strings.TrimRight(buf.String(), " "))
 	}
 
 	fmt.Println(tabSymbol + ")")
@@ -235,7 +247,7 @@ func printSeparator() {
 
 // getFormatString returns format string
 func getFormatString(maxSize int) string {
-	return tabSymbol + "%-" + strconv.Itoa(maxSize) + "s = {y}\"%s:%s\"{!}"
+	return tabSymbol + "%-" + strconv.Itoa(maxSize) + "s {s}={!} {y}\"%s:%s\"{!}"
 }
 
 // ////////////////////////////////////////////////////////////////////////////////// //
@@ -267,13 +279,16 @@ func printMan() {
 func genUsage() *usage.Info {
 	info := usage.NewInfo("", "file")
 
+	info.AppNameColorTag = colorTagApp
+
 	info.AddOption(OPT_SEPARATORS, "Add new lines between sections")
 	info.AddOption(OPT_UNITED, "Generate code for united configuration")
 	info.AddOption(OPT_NO_COLOR, "Disable colors in output")
 	info.AddOption(OPT_HELP, "Show this help message")
 	info.AddOption(OPT_VER, "Show version")
 
-	info.AddExample("app.knf", "Generate copy-paste code for app.knf")
+	info.AddExample("app.knf", "Generate copy-paste code for app")
+	info.AddExample("-U app.knf", "Generate copy-paste code for app with united config part")
 
 	return info
 }
