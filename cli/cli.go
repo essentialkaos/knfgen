@@ -36,7 +36,7 @@ import (
 
 const (
 	APP  = "knfgen"
-	VER  = "1.0.3"
+	VER  = "1.0.4"
 	DESC = "Utility for generating Golang const code for KNF configuration files"
 )
 
